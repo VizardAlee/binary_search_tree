@@ -43,18 +43,29 @@ class BinarySearchTree
     end
     root
   end
-end
 
+  def insert(value, node = root)
+    return nil if value == node.data
+
+    if value < node.data
+      node.left.nil? ? node.left = TreeNode.new(value) : insert(value, node.left)
+    elsif value > node.data
+      node.right.nil? ? node.right = TreeNode.new(value) : insert(value, node.right)
+    else
+      return
+    end
+    node
+  end
+
+  def pretty_print(node = root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+end
 
 tree = BinarySearchTree.new(arr)
-p tree
-
-def insert(value)
-  # convert value to node
-  # if value is less than root, move it to the left to the lowest node
-  # if value is greater than root, move it to the right to the lowest node
-  node = TreeNode.new(value)
-
-end
-
-# p insert(20)
+tree.insert(50)
+tree.insert(12)
+p tree.insert(25)
+tree.pretty_print
