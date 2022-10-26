@@ -57,6 +57,22 @@ class BinarySearchTree
     node
   end
 
+  def delete(value, node = @root)
+    return node if node.nil?
+
+    # determine if the value is smaller or larger than the root
+    # the recursively go to left if its smaller
+    # or recursively go to right if it is larger
+    # return the leftmost or rightmost node is node is nil
+    # find the smallest node in the larger nodes side  to replace the deleted node
+    # recursively replace it
+
+  end
+
+  def smallest_leaf(node)
+    node.left until node.left.nil?
+  end
+
   def pretty_print(node = root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -64,8 +80,11 @@ class BinarySearchTree
   end
 end
 
-tree = BinarySearchTree.new(arr)
+tree = BinarySearchTree.new([1,2,3,4,5,6,7,8,9,10])
 tree.insert(50)
 tree.insert(12)
-p tree.insert(25)
+tree.insert(25)
 tree.pretty_print
+p tree.delete(50)
+tree.pretty_print
+
