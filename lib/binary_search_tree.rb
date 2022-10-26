@@ -87,6 +87,17 @@ class BinarySearchTree
     node.left until node.left.nil?
   end
 
+  def find(value, node = @root)
+    return nil if node.nil?
+    return node if value == node.data
+
+    # traverse left if value is less than root node
+    # and right if value is more than root node
+    # recursively of course
+    # when found, return node with the given value
+    # if not  found, display appropriate message
+  end
+
   def pretty_print(node = root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
