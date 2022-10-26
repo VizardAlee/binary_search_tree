@@ -98,6 +98,15 @@ class BinarySearchTree
     end
   end
 
+  def level_order(&block)
+    # in the binary  search tree, level order refers to all the nodes in the same level
+    # when you start from the root node, the value of the left node and the right node should be 
+    # queued in an array
+    # the first value in the queue should lead you to the next node
+    # then you take the value of the left node and the right and store them in the queue etc
+    # until you run out of values in the queue
+  end
+
   def pretty_print(node = root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
