@@ -67,6 +67,20 @@ class BinarySearchTree
     # find the smallest node in the larger nodes side  to replace the deleted node
     # recursively replace it
 
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else
+
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
+
+      leftmost_node = smallest_leaf(node.right)
+      node.data = leftmost_node.data
+      node.right = delete(leftmost_node.data, node.right)
+    end
+    node
   end
 
   def smallest_leaf(node)
