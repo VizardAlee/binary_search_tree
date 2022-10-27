@@ -98,13 +98,37 @@ class BinarySearchTree
     end
   end
 
-  def level_order(&block)
-    # in the binary  search tree, level order refers to all the nodes in the same level
-    # when you start from the root node, the value of the left node and the right node should be 
-    # queued in an array
-    # the first value in the queue should lead you to the next node
-    # then you take the value of the left node and the right and store them in the queue etc
-    # until you run out of values in the queue
+  def level_order(node = @root, queue = [], result = [])
+    block_given? ? yield(node) : result << node.data
+    queue << node.left unless  node.left.nil?
+    queue << node.right unless node.right.nil?
+    return result if queue.empty?
+
+    level_order(queue.shift, queue, result)
+  end
+
+  def inorder(node = @root, result = [])
+    return if node.nil?
+
+    inorder(node.left, result)
+    block_given? ? yield(node) : result << node.data
+    inorder(node.right, result)
+  end
+
+  def preorder(node = @root, result =  [])
+    return if node.nil?
+
+    block_given? ? yield(node) : result << node.data
+    preorder(node.left, result)
+    preorder(node.right, result)
+  end
+
+  def postorder(node = @root,result = [])
+    return if node.nil?
+
+    postorder(node.left, result)
+    postorder(node.right, result)
+    block_given? ? yield(node) : result << node.data
   end
 
   def pretty_print(node = root, prefix = '', is_left = true)
@@ -118,7 +142,8 @@ tree = BinarySearchTree.new([1,2,3,4,5,6,7,8,9,10])
 tree.insert(50)
 tree.insert(12)
 tree.insert(25)
+tree.delete(50)
 tree.pretty_print
-p tree.delete(50)
-tree.pretty_print
-p tree.find(25)
+# tree.find(25)
+p tree.level_order
+p tree.inorder
