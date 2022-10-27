@@ -4,7 +4,7 @@ require_relative 'node'
 
 # Binary search tree
 arr = []
-count = rand(5..10) + 1
+count = rand(0..30) + 1
 
 until count.zero?
   arr << rand(0..1000) + 1
@@ -59,13 +59,6 @@ class BinarySearchTree
 
   def delete(value, node = @root)
     return node if node.nil?
-
-    # determine if the value is smaller or larger than the root
-    # the recursively go to left if its smaller
-    # or recursively go to right if it is larger
-    # return the leftmost or rightmost node is node is nil
-    # find the smallest node in the larger nodes side  to replace the deleted node
-    # recursively replace it
 
     if value < node.data
       node.left = delete(value, node.left)
@@ -136,9 +129,28 @@ class BinarySearchTree
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
+
+  def height(node = @root, height_count = -1)
+    return height_count if node.nil?
+
+    height_count += 1
+    [height(node.left, height_count), height(node.right,height_count)].max
+  end
+
+  def depth(value, node = @root, depth_count = -1)
+    return nil if value.nil?
+    return depth_count if value == node.data
+
+    depth_count += 1
+    if value < node.data
+      depth(value, node.left, depth_count)
+    elsif value > node.data
+      depth(value, node.right, depth_count)
+    end
+  end
 end
 
-tree = BinarySearchTree.new([1,2,3,4,5,6,7,8,9,10])
+tree = BinarySearchTree.new(arr)
 tree.insert(50)
 tree.insert(12)
 tree.insert(25)
@@ -147,3 +159,5 @@ tree.pretty_print
 # tree.find(25)
 p tree.level_order
 p tree.inorder
+p tree.height
+p tree.depth(25)
