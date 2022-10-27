@@ -11,7 +11,7 @@ until count.zero?
   count -= 1
 end
 
-p arr
+# p arr
 
 class BinarySearchTree
   attr_accessor :root, :data
@@ -22,7 +22,7 @@ class BinarySearchTree
   end
 
   def build_tree(arr)
-    return nil if arr.empty?
+    return nil if arr.nil?
 
     arr_sort = arr.sort
     array = arr_sort.uniq
@@ -106,6 +106,8 @@ class BinarySearchTree
     inorder(node.left, result)
     block_given? ? yield(node) : result << node.data
     inorder(node.right, result)
+
+    result
   end
 
   def preorder(node = @root, result =  [])
@@ -114,6 +116,8 @@ class BinarySearchTree
     block_given? ? yield(node) : result << node.data
     preorder(node.left, result)
     preorder(node.right, result)
+
+    result
   end
 
   def postorder(node = @root,result = [])
@@ -122,6 +126,8 @@ class BinarySearchTree
     postorder(node.left, result)
     postorder(node.right, result)
     block_given? ? yield(node) : result << node.data
+
+    result
   end
 
   def pretty_print(node = root, prefix = '', is_left = true)
@@ -148,16 +154,27 @@ class BinarySearchTree
       depth(value, node.right, depth_count)
     end
   end
+
+  def balanced?(node = @root)
+    (height(node.left) - height(node.right)).abs <= 1
+  end
+
+  def rebalance
+    @root = build_tree(inorder)
+  end
 end
 
 tree = BinarySearchTree.new(arr)
 tree.insert(50)
 tree.insert(12)
 tree.insert(25)
-tree.delete(50)
+# tree.delete(50)
 tree.pretty_print
 # tree.find(25)
-p tree.level_order
-p tree.inorder
-p tree.height
-p tree.depth(25)
+tree.level_order
+tree.inorder
+tree.height
+tree.depth(25)
+p tree.balanced?
+p tree.rebalance
+p tree.balanced?
