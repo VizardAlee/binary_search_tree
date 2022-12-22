@@ -99,6 +99,38 @@ class Tree
     order << node.data
   end
 
+  def depth(value, node = @root, count = 0)
+    return "Node #{value} doesn't exist. Please check again!" if node.nil?
+    return "Node #{value}'s height is #{count} nodes in" if node.data == value
+
+    if value < node.data
+      node.left = depth(value, node.left, count + 1)
+    else
+      node.right = depth(value, node.right, count + 1)
+    end
+  end
+
+  def height(node = @root, count = 0)
+    return count if node.nil?
+
+    count += 1
+    [height(node.left, count), height(node.right, count)].max
+  end
+
+  def balanced?(node = @root)
+    left_height = height(node.left)
+    right_height = height(node.right)
+
+    p left_dif = left_height - right_height
+    p right_dif = right_height - left_height
+
+    if left_dif <= 1 && left_dif >= 0 || right_dif <= 1 && right_dif >= 0
+      true
+    else
+      false
+    end
+  end
+
   def min_value_node(node)
     return node if node.left.nil?
 
