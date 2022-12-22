@@ -83,8 +83,20 @@ class Tree
     node.right = inorder(node.right, order)
   end
 
-  def pre
-    
+  def preorder(node = @root, order = [])
+    return order if node.nil?
+
+    order << node.data
+    node.left = preorder(node.left, order)
+    node.right = preorder(node.right, order)
+  end
+
+  def postorder(node = @root, order = [])
+    return order if node.nil?
+
+    node.left = postorder(node.left, order)
+    node.right = postorder(node.right, order)
+    order << node.data
   end
 
   def min_value_node(node)

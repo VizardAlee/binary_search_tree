@@ -14,4 +14,6 @@ tree.delete(6)
 p tree.pretty_print
 # p tree.find(13)
 p tree.level_order
-p tree.inorder
+#p tree.inorder
+#p tree.preorder
+p tree.postorder
