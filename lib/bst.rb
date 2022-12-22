@@ -78,9 +78,13 @@ class Tree
   def inorder(node = @root, order = [])
     return order if node.nil?
 
-    order << node.data
     node.left = inorder(node.left, order)
+    order << node.data
     node.right = inorder(node.right, order)
+  end
+
+  def pre
+    
   end
 
   def min_value_node(node)
