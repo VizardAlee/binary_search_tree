@@ -75,6 +75,14 @@ class Tree
     level_order(queue.shift, queue, order)
   end
 
+  def inorder(node = @root, order = [])
+    return order if node.nil?
+
+    order << node.data
+    node.left = inorder(node.left, order)
+    node.right = inorder(node.right, order)
+  end
+
   def min_value_node(node)
     return node if node.left.nil?
 
