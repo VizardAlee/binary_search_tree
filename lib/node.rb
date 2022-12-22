@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # node class
-class TreeNode
+class Node
   attr_accessor :data, :left, :right
 
-  def initialize(data)
+  def initialize(data = nil, left = nil, right = nil)
     @data = data
-    @left = nil
-    @right = nil
+    @left = left
+    @right = right
   end
 end
