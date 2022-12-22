@@ -65,8 +65,19 @@ class Tree
     end
   end
 
-  def level_order(value, node = @root)
-    
+  def level_order(node = @root, queue = [], order = [])
+    # pseudo code
+    # take the root node of every level of depth before going deeper
+    # on a current root node, puts the data from left and right node to queue
+    # the data in queue determines the node we are on while the child nodes are also put in the queue
+    # until there is no node data left in the queue
+    order << node.data
+
+    queue << node.left unless node.left.nil?
+    queue << node.left unless node.right.nil?
+    return order if queue.nil?
+
+    level_order(queue.shift, queue, order)
   end
 
   def min_value_node(node)

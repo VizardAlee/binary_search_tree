@@ -12,4 +12,5 @@ tree.delete(11)
 tree.delete(8)
 tree.delete(6)
 p tree.pretty_print
-p tree.find(13)
+# p tree.find(13)
+p tree.level_order
