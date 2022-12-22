@@ -131,6 +131,10 @@ class Tree
     end
   end
 
+  def rebalance
+    build_tree(inorder)
+  end
+
   def min_value_node(node)
     return node if node.left.nil?
 

@@ -22,3 +22,6 @@ p tree.level_order
 #p tree.depth(2)
 p tree.height
 p tree.balanced?
+p tree.rebalance
+#p tree.pretty_print
+#p tree.balanced?
